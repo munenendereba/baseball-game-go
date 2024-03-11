@@ -8,20 +8,20 @@ import (
 func CalculatePoints(ops []string) int {
 	var res int = 0
 
-	numbers := []int{} // new slice
+	numbers := []int{}
 	removed, j := 0, 0
 
 	for i, op := range ops {
 		j = i - removed
-
-		if op == "+" {
-			numbers = append(numbers, (numbers[j-1] + numbers[j-2]))
-		} else if op == "D" {
-			numbers = append(numbers, (numbers[j-1] * 2))
-		} else if op == "C" {
+		switch op {
+		case "+":
+			numbers = append(numbers, numbers[j-1]+numbers[j-2])
+		case "D":
+			numbers = append(numbers, numbers[j-1]*2)
+		case "C":
 			numbers = numbers[:j-1]
-			removed = removed + 2
-		} else {
+			removed += 2
+		default:
 			num, _ := strconv.Atoi(op)
 			numbers = append(numbers, num)
 		}
